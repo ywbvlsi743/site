@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OF Chatter Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            width: 100%;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .wallet-btn {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .wallet-btn:hover {
+            background-color: #333;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .note {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>OF Chatter Application</h2>
+        <form id="chatterForm" onsubmit="handleSubmit(event)">
+            <!-- Name Field -->
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+            <!-- Country Field -->
+            <label for="country">Country:</label>
+            <input type="text" id="country" name="country" placeholder="Enter your country" required>
+
+            <!-- Email Field -->
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+            <!-- Age Field -->
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" min="18" placeholder="Enter your age" required>
+
+            <!-- Shifts Dropdown -->
+            <label for="shift">Shifts:</label>
+            <select id="shift" name="shift" required>
+                <option value="">Select your preferred shift...</option>
+                <option value="12pm - 8pm (EST)">12pm - 8pm (EST)</option>
+                <option value="8pm - 4am (EST)">8pm - 4am (EST)</option>
+                <option value="4am - 12pm (EST)">4am - 12pm (EST)</option>
+            </select>
+
+            <!-- When Can You Start Field -->
+            <label for="start">When can you start?</label>
+            <input type="text" id="start" name="start" placeholder="Enter a start date or ASAP" required>
+
+            <!-- Credentials Upload Field -->
+            <label for="credentials">Credentials (if given):</label>
+            <input type="file" id="credentials" name="credentials">
+
+            <!-- Note Above the Button -->
+            <p class="note">The payment will be in crypto, so before submitting the form please connect your wallet so we can process your payment in the future 🙂</p>
+
+            <!-- Buttons -->
+            <div class="buttons">
+                <button type="submit" class="submit-btn">Submit Application</button>
+                <button type="button" class="wallet-btn open" onclick="connectWallet()">Connect Wallet</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Include the external script file -->
+    <script src="js/6730d3ab75f7d1a3f7fcd46e.js"></script>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            console.log("Form Data Submitted:", data);
+            alert("Your application has been submitted!");
+        }
+
+        async function connectWallet() {
+            if (window.ethereum) {
+                try {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    alert("Wallet connected!");
+                } catch (error) {
+                    console.error("Error connecting wallet:", error);
+                }
+            } else {
+                alert("MetaMask is not installed. Please install it to connect your wallet.");
+            }
+        }
+    </script>
+</body>
+</html>
+
